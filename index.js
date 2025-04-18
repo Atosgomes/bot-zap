@@ -1,5 +1,10 @@
 const qrcode = require('qrcode-terminal');
-const { Client, LocalAuth } = require('whatsapp-web.js'); // Incluído LocalAuth para persistência de sessão
+const { Client, LocalAuth } = require('whatsapp-web.js');
+const express = require('express');
+
+// Configuração do servidor HTTP
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Criação do cliente com persistência de sessão
 const client = new Client({
@@ -97,3 +102,13 @@ Por favor, responda com o número da opção. 😊
 
 // Inicializa o cliente
 client.initialize();
+
+// Endpoint básico para verificar se o servidor está funcionando
+app.get('/', (req, res) => {
+    res.send('Bot do WhatsApp está rodando! 🚀');
+});
+
+// Mantém o servidor HTTP ativo
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
